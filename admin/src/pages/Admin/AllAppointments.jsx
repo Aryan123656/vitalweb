@@ -24,7 +24,7 @@ const AllAppointments = () => {
         <div className='hidden sm:grid grid-cols-[0.5fr_3fr_3fr_3fr_1fr_1fr] grid-flow-col py-3 px-6 border-b'>
           <p>#</p>
           <p>Patient</p>
-          {/* <p>Age</p> */}
+          
           <p>Date & Time</p>
           <p>Doctor</p>
           <p>Fees</p>
