@@ -1,3 +1,5 @@
+console.log('Admin Token:', aToken)
+console.log('Doctor Token:', dToken)
 import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink } from 'react-router-dom'
