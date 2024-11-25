@@ -15,13 +15,10 @@ const MyAppointments = () => {
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    // Function to format the date eg. ( 20_01_2000 => 20 Jan 2000 )
     const slotDateFormat = (slotDate) => {
         const dateArray = slotDate.split('_')
         return dateArray[0] + " " + months[Number(dateArray[1])] + " " + dateArray[2]
     }
-
-    // Getting User Appointments Data Using API
     const getUserAppointments = async () => {
         try {
 
@@ -33,12 +30,8 @@ const MyAppointments = () => {
             toast.error(error.message)
         }
     }
-
-    // Function to cancel appointment Using API
     const cancelAppointment = async (appointmentId) => {
-
         try {
-
             const { data } = await axios.post(backendUrl + '/api/user/cancel-appointment', { appointmentId }, { headers: { token } })
 
             if (data.success) {
@@ -54,13 +47,6 @@ const MyAppointments = () => {
         }
 
     }
-
-
-
-
-
-
-
     useEffect(() => {
         if (token) {
             getUserAppointments()
@@ -100,5 +86,4 @@ const MyAppointments = () => {
         </div>
     )
 }
-
 export default MyAppointments

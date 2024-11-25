@@ -7,7 +7,6 @@ const Footer = () => {
       <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10  mt-40 text-sm'>
 
         <div>
-          {/* <img className='mb-5 w-40' src={assets.logo} alt="" /> */}
           <p className='text-primary text-3xl mb-7'>Vital Web</p>
           <p className='w-full md:w-2/3 text-gray-600 leading-6'>VitalWeb is a cutting-edge hospital management system designed to streamline operations, improve patient care, and enhance administrative efficiency.VitalWeb simplifies healthcare workflows, ensuring a smarter, faster, and more efficient hospital experience.</p>
         </div>
@@ -29,11 +28,7 @@ const Footer = () => {
             <li>vitalweb@gmail.com</li>
           </ul>
         </div>
-
       </div>
-
-
-
     </div>
   )
 }
