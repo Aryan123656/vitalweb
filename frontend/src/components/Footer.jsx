@@ -7,8 +7,12 @@ const Footer = () => {
       <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10  mt-40 text-sm'>
 
         <div>
-          <p className='text-primary text-3xl mb-7'>Vital Web</p>
-          <p className='w-full md:w-2/3 text-gray-600 leading-6'>VitalWeb is a cutting-edge hospital management system designed to streamline operations, improve patient care, and enhance administrative efficiency.VitalWeb simplifies healthcare workflows, ensuring a smarter, faster, and more efficient hospital experience.</p>
+        <img
+        onClick={() => navigate("/")}
+        className="w-20 cursor-pointer"
+        src={assets.logo1}
+        alt=""/>
+        <p className='w-full md:w-2/3 text-gray-600 leading-6'>VitalWeb is a cutting-edge hospital management system designed to streamline operations, improve patient care, and enhance administrative efficiency.VitalWeb simplifies healthcare workflows, ensuring a smarter, faster, and more efficient hospital experience.</p>
         </div>
 
         <div>
