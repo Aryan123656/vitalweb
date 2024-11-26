@@ -126,7 +126,7 @@ const bookAppointment = async (req, res) => {
             userId,
             docId,
             userData,
-            docData,
+            docData:docData.select("-slots_booked"),
             amount: docData.fees,
             slotTime,
             slotDate,
@@ -134,7 +134,7 @@ const bookAppointment = async (req, res) => {
         }
 
         const newAppointment = new appointmentModel(appointmentData)
-        await newAppointment.save()
+         await newAppointment.save()
         await doctorModel.findByIdAndUpdate(docId, { slots_booked })
         res.json({ success: true, message: 'Appointment Booked' })
     } catch (error) {
