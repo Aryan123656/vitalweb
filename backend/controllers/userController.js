@@ -126,7 +126,7 @@ const bookAppointment = async (req, res) => {
             userId,
             docId,
             userData,
-            docData:docData.select("-slots_booked"),
+            docData,
             amount: docData.fees,
             slotTime,
             slotDate,
