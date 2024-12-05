@@ -8,10 +8,12 @@ const AppContextProvider = (props) => {
 
     const currencySymbol = '₹'
     const backendUrl = import.meta.env.VITE_BACKEND_URL
-
+    const alphaRegex = /^[A-Za-z\s]+$/;
     const [doctors, setDoctors] = useState([])
     const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '')
     const [userData, setUserData] = useState(false)
+    const  emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
     const getDoctosData = async () => {
 
         try {
@@ -60,7 +62,9 @@ const AppContextProvider = (props) => {
         currencySymbol,
         backendUrl,
         token, setToken,
-        userData, setUserData, loadUserProfileData
+        userData, setUserData, loadUserProfileData,
+        alphaRegex,
+        emailRegex
     }
 
     return (
