@@ -5,6 +5,9 @@ import userModel from "../models/userModel.js";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appointmentModel.js";
 import { v2 as cloudinary } from 'cloudinary'
+import crypto from 'crypto'
+import nodemailer from 'nodemailer';
+
 
 const registerUser = async (req, res) => {
 
@@ -190,6 +193,91 @@ const listAppointment = async (req, res) => {
     }
 }
 
+const transporter = nodemailer.createTransport({
+    service:'gmail',
+    auth:{
+        user:process.env.EMAIL_USER,
+        pass:process.env.EMAIL_PASS
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+})
+
+
+const sendEmail=async function(email,resetToken){
+
+    const mailOptions={
+        from:process.env.EMAIL_USER,
+        to:email,
+        subject:'Reset Password',
+        html:`
+        <p>Password Reset Request</p>
+        <p>Your OTP is ${resetToken}</p>
+        <p>This otp will expires in 5 minutes</p>`
+    }
+
+    await transporter.sendMail(mailOptions);     
+}
+
+const forgotPassword = async(req,res)=>{
+    try{
+        const {email}=req.body;
+        const user=await userModel.findOne({email});
+        if(!user){
+            return res.json({success:false,message:'Enter Valid Email'});
+        }
+        const resetToken = crypto.randomInt(100000,999999).toString();
+        const hashedResetToken = await bcrypt.hash(resetToken, 10);
+        user.resetPasswordToken=hashedResetToken;
+        user.resetPasswordExpires=Date.now()+(10*60*1000);
+        await user.save();
+        await sendEmail(email,resetToken);
+        return res.json({
+            success:true
+        })
+
+
+    }catch(err){
+        return res.json({ success: false, message: err.message});
+    }
+}
+
+
+const resetPassword = async(req,res)=>{
+    try{
+        const {email,otp,newPass}=req.body;
+        const user = await userModel.findOne({email});
+        if(!user){
+            return res.json({
+                message:"Invalid Email",
+                success:false
+            })
+        }
+
+        const valid = await bcrypt.compare(otp,user.resetPasswordToken);
+        if(!valid||Date.now()>user.resetPasswordExpires){
+            return res.json({
+                success:false,
+                message:"Invalid OTP OR OTP HAS EXPIRED"
+            })
+        }
+
+        user.password=await bcrypt.hash(newPass,10);
+        await user.save();
+        return res.json({
+            success:true,
+            message:"PASSWORD CHANGED SUCCESSFULLY"
+        })
+
+    }catch(err){
+        return res.json({
+            success:false,
+            message:err.message
+        })
+    }
+}
+
 export {
     loginUser,
     registerUser,
@@ -198,4 +286,13 @@ export {
     bookAppointment,
     listAppointment,
     cancelAppointment,
+    forgotPassword,
+    resetPassword
 }
+
+
+
+
+
+
+
