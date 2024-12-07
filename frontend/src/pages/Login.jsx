@@ -16,6 +16,9 @@ const Login = () => {
   const [newPass, setNewPass] = useState("");
   const [confPass, setConfPass] = useState("");
 
+  const[newPassEye,setNewPassEye]=useState(true);
+  const[confNewPassEye,setConfNewPassEye]=useState(true);
+
   const navigate = useNavigate();
   const { backendUrl, token, setToken } = useContext(AppContext);
 
@@ -154,7 +157,6 @@ const Login = () => {
             <p className="text-lg font-semibold">Forgot Password</p>
             <input
               type="email"
-              value={forgotEmail}
               onChange={(e) => setForgotEmail(e.target.value)}
               className="border rounded w-full p-2 mt-2"
               placeholder="Enter your email"
@@ -189,22 +191,30 @@ const Login = () => {
               required
             />
             <p className="text-lg font-semibold mt-3">New Password</p>
+            <div className="items-center flex border justify-between focus-within:ring-1 focus-within:border-black  focus-within:ring-black p-2 rounded w-full">
             <input
-              type="password"
+              type={newPassEye?'password':'text'}
               onChange={(e) => setNewPass(e.target.value)}
-              className="border rounded w-full p-2 mt-2"
+              className="w-full border-none outline-none"
               placeholder="Enter New Password"
               required
             />
+            <p onClick={()=>setNewPassEye(!newPassEye)} className="cursor-pointer">{newPassEye?<FaRegEye/>:<FaRegEyeSlash/>}</p>
+
+            </div>
 
             <p className="text-lg font-semibold mt-3">Confirm New Password</p>
+            <div className="items-center flex border justify-between focus-within:ring-1 focus-within:border-black  focus-within:ring-black p-2 rounded w-full">
             <input
-              type="password"
+              type={confNewPassEye?'password':'text'}
               onChange={(e) => setConfPass(e.target.value)}
-              className="border rounded w-full p-2 mt-2"
+              className="w-full border-none outline-none"
               placeholder="Confirm New Password"
               required
             />
+            <p onClick={()=>setConfNewPassEye(!confNewPassEye)} className="cursor-pointer">{confNewPassEye?<FaRegEye/>:<FaRegEyeSlash/>}</p>
+
+            </div>
 
             <div className="flex justify-end gap-2 mt-4">
               <button
