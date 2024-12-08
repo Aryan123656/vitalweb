@@ -9,6 +9,44 @@ import crypto from 'crypto'
 import nodemailer from 'nodemailer';
 
 
+const appointmentCount = async (req, res) => {
+    try {
+        const { slotDate, docId, userId } = req.body;
+
+        // Ensure required fields are provided
+        if (!slotDate || !docId) {
+            return res.status(400).json({ 
+                success: false, 
+                message: "Missing required fields: slotDate or email" 
+            });
+        }
+
+        // Count appointments for the doctor on the specific date
+        const count = await appointmentModel.countDocuments({
+            docId, // Assuming email refers to the doctor's ID
+            slotDate: slotDate,
+            userId: userId
+        });
+
+        if (count >= 5) {
+            return res.status(200).json({
+                success: false,
+                message: "Maximum appointments reached for the day"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Appointment available for the day"
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: err.message
+        });
+    }
+};
+
 const registerUser = async (req, res) => {
 
     try {
@@ -287,7 +325,8 @@ export {
     listAppointment,
     cancelAppointment,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    appointmentCount
 }
 
 
