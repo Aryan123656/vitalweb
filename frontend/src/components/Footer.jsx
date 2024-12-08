@@ -9,7 +9,7 @@ const Footer = () => {
         <div>
         <img
         onClick={() => navigate("/")}
-        className="w-20 cursor-pointer"
+        className="w-[180px] cursor-pointer"
         src={assets.logo1}
         alt=""/>
         <p className='w-full md:w-2/3 text-gray-600 leading-6'>VitalWeb is a cutting-edge hospital management system designed to streamline operations, improve patient care, and enhance administrative efficiency.VitalWeb simplifies healthcare workflows, ensuring a smarter, faster, and more efficient hospital experience.</p>
