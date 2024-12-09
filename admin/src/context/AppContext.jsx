@@ -10,8 +10,10 @@ const AppContextProvider = (props) => {
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     const slotDateFormat = (slotDate) => {
+        console.log(slotDate);
         const dateArray = slotDate.split('_')
-        return dateArray[0] + " " + months[Number(dateArray[1])] + " " + dateArray[2]
+        console.log(dateArray);
+        return dateArray[0] + " " + months[Number(dateArray[1])-1] + " " + dateArray[2]
     }
     const calculateAge = (dob) => {
         const today = new Date()

@@ -113,14 +113,14 @@ const Login = () => {
           </div>
           <div className="w-full ">
             <p>Password</p>
-            <div className="border h-10 flex justify-between w-full items-center rounded focus-within:border-black focus-within:ring-1 focus-within:ring-black">
-              <input
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-                className="w-full h-full p-2 border-none outline-none rounded"
-                type={showPass ? "text" : "password"}
-                required
-              />
+                <div className="border h-10 flex justify-between w-full items-center rounded focus-within:border-black focus-within:ring-1 focus-within:ring-black">
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    className="w-full h-full p-2 border-none outline-none rounded"
+                    type={showPass ? "text" : "password"}
+                    required
+                  />
               <p
                 onClick={() => setShowPass(!showPass)}
                 className="relative right-3 cursor-pointer"

@@ -3,11 +3,13 @@ import React, { useContext, useState } from 'react'
 import { DoctorContext } from '../context/DoctorContext'
 import { AdminContext } from '../context/AdminContext'
 import { toast } from 'react-toastify'
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+
 
 const Login = () => {
 
   const [state, setState] = useState('Admin')
-
+  const [showPass, setShowPass] = useState(true);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -53,7 +55,22 @@ const Login = () => {
         </div>
         <div className='w-full '>
           <p>Password</p>
-          <input onChange={(e) => setPassword(e.target.value)} value={password} className='border border-[#DADADA] rounded w-full p-2 mt-1' type="password" required />
+          <div className="relative border h-10 flex justify-between w-full items-center rounded focus-within:border-black focus-within:ring-1 focus-within:ring-black">
+                  <input
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
+                    className="w-full h-full p-2 border-none outline-none rounded"
+                    type={showPass ? "text" : "password"}
+                    required
+                  />
+              <p
+                onClick={() => setShowPass(!showPass)}
+                className="absolute right-3 cursor-pointer"
+              >
+                {showPass ? <FaRegEyeSlash /> : <FaRegEye />}
+              </p>
+              </div>
+
         </div>
         <button className='bg-primary text-white w-full py-2 rounded-md text-base'>Login</button>
         {
